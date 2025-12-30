@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kshitij Ganar | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        optimistic: {
+                            bg: '#fdfbf7',       /* Warm Off-White */
+                            card: '#ffffff',     /* Pure White */
+                            text: '#2d3748',     /* Soft Charcoal */
+                            border: '#f3f4f6',   /* Light Grey */
+                        },
+                        brand: {
+                            orange: '#ff8c42',   /* Optimistic Orange */
+                            blue: '#3b82f6',     /* Trust Blue */
+                            green: '#10b981',    /* Growth Green */
+                            yellow: '#f59e0b',   /* Energy Yellow */
+                            purple: '#8b5cf6',   /* Creative Purple */
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.05)',
+                        'hover': '0 25px 50px -12px rgba(0,0,0,0.1)',
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fdfbf7;
+            color: #2d3748;
+            overflow-x: hidden;
+            padding: 1rem;
+        }
+
+        /* --- NEW LAYOUT STRUCTURE --- */
+        .bento-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+
+        @media (min-width: 1024px) {
+            .bento-wrapper {
+                grid-template-columns: repeat(4, 1fr);
+                /* Fixed rows for perfect alignment */
+                grid-template-rows: repeat(4, 180px); 
+                height: 95vh;
+                align-content: center;
+            }
+
+            /* --- BOX PLACEMENT --- */
+            
+            /* ROW 1 & 2: The "Hero" Section */
+            .box-profile { grid-column: span 2; grid-row: span 2; } /* Top Left: Big Profile */
+            .box-projects { grid-column: span 2; grid-row: span 2; } /* Top Right: Big Projects */
+
+            /* ROW 3: The "Evidence" Section */
+            .box-experience { grid-column: span 2; grid-row: span 1; } /* Mid Left: Wide Exp */
+            .box-stack { grid-column: span 1; grid-row: span 1; }      /* Mid Right: Tech */
+            .box-resume { grid-column: span 1; grid-row: span 1; }     /* Mid Right: Resume */
+
+            /* ROW 4: The "Details" Section */
+            .box-education { grid-column: span 1; grid-row: span 1; }  /* Bottom Left */
+            .box-socials { grid-column: span 2; grid-row: span 1; }    /* Bottom Mid: Wide Socials */
+            .box-location { grid-column: span 1; grid-row: span 1; }   /* Bottom Right */
+        }
+
+        /* --- CARD STYLING --- */
+        .card {
+            background-color: #ffffff;
+            border-radius: 2rem;
+            padding: 1.75rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            border: 1px solid #f3f4f6;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08);
+            z-index: 20;
+            border-color: #e5e7eb;
+        }
+
+        /* --- INDIVIDUAL BOX THEMES (Optimistic) --- */
+
+        /* Profile: Clean & Friendly */
+        .box-profile {
+            background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
+        }
+
+        /* Projects: Featured (Green) */
+        .box-projects {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 1px solid #bbf7d0;
+        }
+
+        /* Experience: Blue Accent */
+        .box-experience {
+            background-color: #ffffff;
+            border-left: 6px solid #3b82f6;
+        }
+
+        /* Tech Stack: Soft Purple */
+        .box-stack {
+            background-color: #f5f3ff;
+            color: #5b21b6;
+        }
+
+        /* Resume: Pop Orange */
+        .box-resume {
+            background: linear-gradient(135deg, #ff8c42 0%, #f97316 100%);
+            color: white;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: none;
+        }
+
+        /* Education: Gradient Blue */
+        .box-education {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+        }
+
+        /* Socials: Clean Row */
+        .box-socials {
+            background-color: #ffffff;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        /* Location: Map */
+        .box-location {
+            background-image: url('https://api.mapbox.com/styles/v1/mapbox/light-v10/static/79.4,21.1,11,0/300x300?access_token=pk.eyJ1IjoiZGVtbyIsImEiOiJja2VkbmM5bGEwM2F5MnRwYXprbm15c215In0.Z8_wjZq-iZ4uCZ4uCZ4uCZ');
+            background-size: cover;
+            align-items: center;
+            justify-content: center;
+        }
+        .location-overlay {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.6;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 2rem;
+            object-fit: cover;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .tag {
+            background: #ffffff;
+            padding: 0.35rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #4b5563;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* --- MODAL --- */
+        .modal-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(253, 251, 247, 0.9); /* Warm overlay */
+            backdrop-filter: blur(8px);
+            z-index: 50;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            border-radius: 2.5rem;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            position: relative;
+            animation: floatUp 0.4s ease-out;
+        }
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .close-btn:hover { background: #e5e7eb; }
+
+    </style>
+</head>
+<body>
+
+    <div class="bento-wrapper animate-fade-up">
+
+        <!-- 1. PROFILE (Top Left 2x2) -->
+        <div class="card box-profile overflow-y-auto" onclick="openModal('profile')">
+            <div class="flex flex-col h-full justify-between">
+                <div class="flex justify-between items-start mb-4">
+                    <!-- Ensure the image file 'MBAA25117_KShitij Ganar.jpg' is in the same folder -->
+                    <img src="MBAA25117_KShitij Ganar.jpg" alt="Kshitij" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Kshitij+Ganar&background=ff8c42&color=fff'">
+                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Available
+                    </span>
+                </div>
+                <div>
+                    <h1 class="text-4xl font-extrabold text-slate-800 mb-1">Kshitij Ganar</h1>
+                    
+                    <!-- Short Intro (Shown on Card) -->
+                    <div class="text-sm text-slate-600 leading-relaxed mt-2 mb-4 font-medium">
+                        I’m an MBA in Analytics at IIM Kashipur with 2 years of experience running high-scale academic operations at BYJU’S. I specialize in building structured processes using data, and I’m keen to apply this in <strong>Project, Product, Operations, Supply Chain and General Management roles</strong>.
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-orange-100">
+                        <p class="text-xs font-bold text-slate-400 uppercase mb-2 tracking-wider">Areas of Interest:</p>
+                        <div class="flex flex-wrap gap-2 text-[11px] font-semibold text-slate-600">
+                            <span class="bg-white px-2 py-1 rounded border border-orange-100 shadow-sm">Project Management</span>
+                            <span class="bg-white px-2 py-1 rounded border border-orange-100 shadow-sm">Operations Management</span>
+                            <span class="bg-white px-2 py-1 rounded border border-orange-100 shadow-sm">Product Management</span>
+                            <span class="bg-white px-2 py-1 rounded border border-orange-100 shadow-sm">Supply Chain Management</span>
+                            <span class="bg-white px-2 py-1 rounded border border-orange-100 shadow-sm">General Management</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. PROJECTS (Top Right 2x2) -->
+        <div class="card box-projects" onclick="openModal('projects')">
+            <div class="flex flex-col h-full justify-between">
+                <div class="flex justify-between items-start">
+                    <div class="label text-green-700">Featured Case Study</div>
+                    <i class="fa-solid fa-chart-line text-2xl text-green-600"></i>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-green-900 mb-2">Ed-Tech Optimization</h2>
+                    <p class="text-green-800 text-sm mb-4 leading-relaxed">
+                        Leveraged audit data from 1500+ sessions to reduce faculty error rates by 15% and standardize delivery.
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="bg-white/60 px-3 py-1 rounded-lg text-xs font-bold text-green-800">Ops Research</span>
+                        <span class="bg-white/60 px-3 py-1 rounded-lg text-xs font-bold text-green-800">Python</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. EXPERIENCE (Mid Left 2x1) -->
+        <div class="card box-experience" onclick="openModal('exp')">
+            <div class="flex justify-between items-center mb-4">
+                <div class="label text-blue-500">Work History</div>
+                <span class="text-xs font-bold text-slate-400">2 Years Exp</span>
+            </div>
+            <div class="flex gap-6">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800">Byjus</h3>
+                    <p class="text-sm text-slate-500">Faculty (21 Mos)</p>
+                </div>
+                <div class="w-px bg-slate-100"></div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800">Eicher Motors</h3>
+                    <p class="text-sm text-slate-500">Intern (1 Mo)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. TECH STACK (Mid Right 1x1) -->
+        <div class="card box-stack" onclick="openModal('skills')">
+            <div class="label text-purple-600">Toolkit</div>
+            <div class="grid grid-cols-2 gap-2 mt-2">
+                <div class="bg-white p-2 rounded-lg text-center shadow-sm text-xs font-bold text-slate-600">Power BI</div>
+                <div class="bg-white p-2 rounded-lg text-center shadow-sm text-xs font-bold text-slate-600">Python</div>
+                <div class="bg-white p-2 rounded-lg text-center shadow-sm text-xs font-bold text-slate-600">Tableau</div>
+                <div class="bg-white p-2 rounded-lg text-center shadow-sm text-xs font-bold text-slate-600">Excel</div>
+            </div>
+        </div>
+
+        <!-- 5. RESUME (Mid Right 1x1) -->
+        <div class="card box-resume" onclick="window.open('MBAA25117_KshitijGanar.pdf', '_blank')">
+            <i class="fa-solid fa-file-arrow-down text-3xl mb-2"></i>
+            <h3 class="font-bold text-lg">Resume</h3>
+            <p class="text-xs opacity-90">PDF Download</p>
+        </div>
+
+        <!-- 6. EDUCATION (Bottom Left 1x1) -->
+        <div class="card box-education" onclick="openModal('edu')">
+            <div class="label text-blue-100">Education</div>
+            <div class="mt-auto">
+                <h3 class="text-3xl font-extrabold">MBA</h3>
+                <p class="text-sm opacity-90">Analytics</p>
+                <p class="text-xs mt-1 opacity-75">IIM Kashipur '27</p>
+            </div>
+        </div>
+
+        <!-- 7. SOCIALS (Bottom Mid 2x1) -->
+        <div class="card box-socials">
+            <a href="https://linkedin.com/in/kshitij-ganar-50317190" target="_blank" class="text-2xl text-blue-600 hover:scale-110 transition"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="mailto:kshitij.mbaa25117@iimkashipur.ac.in" class="text-2xl text-brand-orange hover:scale-110 transition"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#" class="text-2xl text-slate-700 hover:scale-110 transition"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="text-2xl text-green-500 hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+
+        <!-- 8. LOCATION (Bottom Right 1x1) -->
+        <div class="card box-location" onclick="openModal('contact')">
+            <div class="location-overlay">
+                <i class="fa-solid fa-location-dot text-red-500 text-xl mb-1"></i>
+                <h3 class="font-bold text-slate-800 text-sm">Nagpur</h3>
+                <p class="text-xs text-slate-500">India</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODALS -->
+    
+    <!-- Profile Modal -->
+    <div id="modal-profile" class="modal-wrap" onclick="closeModal(event, 'modal-profile')">
+        <div class="modal-content">
+            <div class="close-btn" onclick="closeModalBtn('modal-profile')"><i class="fa-solid fa-xmark"></i></div>
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <img src="MBAA25117_KShitij Ganar.jpg" class="w-32 h-32 rounded-2xl object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Kshitij+Ganar&background=ff8c42&color=fff'">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">Kshitij Ganar</h2>
+                    <p class="text-brand-orange font-bold text-lg mb-4">MBA Analytics Student @ IIM Kashipur</p>
+                    
+                    <!-- Long Intro (Revealed on Click) -->
+                    <div class="text-slate-600 leading-relaxed space-y-4 text-base">
+                        <p>
+                            I am an MBA in Analytics candidate at IIM Kashipur with a mechanical engineering background and 21 months of experience at BYJU’S, where I led large-scale academic operations delivering over 1,500 sessions and auditing 500+ lectures to improve quality, consistency, and learner engagement.
+                        </p>
+                        <p>
+                            Across teaching, operations and analytics projects, I’ve consistently worked at the intersection of <strong>people, process and data</strong> whether it was mentoring faculty, building SOPs at Eicher Motors, or analyzing financial and market data to drive business decisions.
+                        </p>
+                        <p>
+                            My strength lies in converting messy, high-volume operations into structured, scalable systems which is why I’m targeting roles in <strong>Project, Product, Operations, Supply Chain and General Management</strong> where execution excellence matters more than slide-making.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Modal -->
+    <div id="modal-projects" class="modal-wrap" onclick="closeModal(event, 'modal-projects')">
+        <div class="modal-content">
+            <div class="close-btn" onclick="closeModalBtn('modal-projects')"><i class="fa-solid fa-xmark"></i></div>
+            <h2 class="text-3xl font-bold mb-6 text-green-700">Ed-Tech Operations Optimization</h2>
+            <div class="space-y-4 text-slate-600">
+                <p><strong>The Challenge:</strong> High variability in teaching quality across 1500+ sessions was leading to student drop-offs.</p>
+                <p><strong>The Action:</strong> Used Excel and Python to analyze audit data from 500+ faculty sessions. Identified correlation between specific teaching errors and retention.</p>
+                <p><strong>The Result:</strong> Reduced error rate by 15% through targeted feedback loops and standardized content delivery workbooks.</p>
+                <div class="mt-6 flex gap-2">
+                    <span class="bg-green-50 text-green-700 px-3 py-1 rounded-lg text-sm font-bold">Process Improvement</span>
+                    <span class="bg-green-50 text-green-700 px-3 py-1 rounded-lg text-sm font-bold">Data Analysis</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Experience Modal (Research-Enhanced) -->
+    <div id="modal-exp" class="modal-wrap" onclick="closeModal(event, 'modal-exp')">
+        <div class="modal-content">
+            <div class="close-btn" onclick="closeModalBtn('modal-exp')"><i class="fa-solid fa-xmark"></i></div>
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">Professional Experience</h2>
+            <div class="space-y-10">
+                <!-- Byjus -->
+                <div class="relative pl-8 border-l-4 border-blue-500">
+                    <h3 class="text-xl font-bold text-slate-900">Byjus Think & Learn Pvt. Ltd.</h3>
+                    <p class="text-sm font-bold text-blue-600 mb-2">Faculty - Chemistry | Jul 2022 - Apr 2024</p>
+                    <p class="text-sm text-slate-500 italic mb-4">Focus: Operations, Quality Assurance, and Stakeholder Management</p>
+                    <ul class="space-y-3 text-slate-700 text-sm list-disc">
+                        <li><strong>Orchestrated Service Delivery:</strong> Managed end-to-end service delivery for a high-volume pipeline of <strong>1,500+ live sessions</strong>, directly impacting customer retention and Net Promoter Score (NPS).</li>
+                        <li><strong>Quality Assurance (QA) Leadership:</strong> Spearheaded a QA framework by conducting <strong>500+ rigorous audits</strong> of deliverables, identifying process gaps, and implementing corrective measures that reduced error rates by <strong>15%</strong>.</li>
+                        <li><strong>Talent Development & Onboarding:</strong> Led the onboarding and training for a cohort of <strong>5+ new FTEs</strong>, standardizing training modules to reduce ramp-up time and ensure operational consistency.</li>
+                        <li><strong>Stakeholder Management (B2C):</strong> Managed high-stakes relationships for a portfolio of 100+ clients (parents/students), resolving escalations and driving engagement through data-backed feedback loops.</li>
+                        <li><strong>Content Strategy:</strong> Created and reviewed 20+ standardized workbooks to ensure curriculum alignment, enhancing the scalability of academic resources.</li>
+                    </ul>
+                </div>
+
+                <!-- Eicher Motors -->
+                <div class="relative pl-8 border-l-4 border-slate-300">
+                    <h3 class="text-xl font-bold text-slate-900">Eicher Motors Ltd.</h3>
+                    <p class="text-sm font-bold text-slate-500 mb-2">Operations Intern | Oct 2021 - Nov 2021</p>
+                    <p class="text-sm text-slate-500 italic mb-4">Focus: Process Improvement and Supply Chain Efficiency</p>
+                    <ul class="space-y-3 text-slate-700 text-sm list-disc">
+                        <li><strong>Process Optimization:</strong> Conducted Root Cause Analysis (RCA) on maintenance workflows to identify bottlenecks in the service supply chain, proposing solutions to reduce downtime.</li>
+                        <li><strong>SOP Implementation:</strong> Developed and implemented Standard Operating Procedures (SOPs) for mechanical inspections, ensuring <strong>100% compliance</strong> with safety and quality protocols.</li>
+                        <li><strong>Workflow Analysis:</strong> Analyzed workflow efficiency in the maintenance department, contributing to a leaner, more responsive service model.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education Modal -->
+    <div id="modal-edu" class="modal-wrap" onclick="closeModal(event, 'modal-edu')">
+        <div class="modal-content">
+            <div class="close-btn" onclick="closeModalBtn('modal-edu')"><i class="fa-solid fa-xmark"></i></div>
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">Education</h2>
+            <div class="space-y-6">
+                 <div class="p-6 rounded-2xl bg-blue-50">
+                    <h3 class="text-xl font-bold text-slate-800">MBA in Analytics</h3>
+                    <p class="text-blue-600 font-bold mb-2">IIM Kashipur | 2025 - 2027</p>
+                    <p class="text-slate-600">Data Driven Management, Operations Research.</p>
+                 </div>
+                 <div class="p-6 rounded-2xl bg-slate-50">
+                    <h3 class="text-xl font-bold text-slate-800">B.E. Mechanical Engineering</h3>
+                    <p class="text-slate-500 font-bold mb-2">KITS Ramtek | 2018 - 2022</p>
+                    <p class="text-slate-600">Score: 87% (Distinction)</p>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        function openModal(id) {
+            document.getElementById('modal-' + id).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(e, id) {
+            if (e.target.classList.contains('modal-wrap')) {
+                document.getElementById(id).style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+        function closeModalBtn(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
